@@ -31,6 +31,7 @@ const difficultyDisplay = document.getElementById('difficulty');
 const completionOverlay = document.getElementById('completionOverlay');
 const nextPuzzleBtn = document.getElementById('nextPuzzleBtn');
 const completionTime = document.getElementById('completionTime');
+const numberIndicators = document.querySelectorAll('.number-indicator');
 let isGameCompleted = false;
 
 // Initialize WASM and load game
@@ -203,6 +204,7 @@ function initializeBoard() {
     }));
 
     renderBoard();
+    updateNumberTracker();
     difficultyDisplay.textContent = `Difficulty: ${currentPuzzle.difficulty}`;
 }
 
@@ -437,6 +439,7 @@ function handleNumberInput(num) {
     }
 
     renderBoard();
+    updateNumberTracker();
     selectCell(idx);
     checkGameCompletion();
 }
@@ -455,7 +458,36 @@ function handleClearCell() {
     cell.pencilMarks.clear();
 
     renderBoard();
+    updateNumberTracker();
     selectCell(idx);
+}
+
+function updateNumberTracker() {
+    if (!gameBoard || !currentSolution) return;
+
+    // Count occurrences of each number in the solution
+    const solutionCounts = {};
+    for (let i = 1; i <= 9; i++) {
+        solutionCounts[i] = (currentSolution.match(new RegExp(i, 'g')) || []).length;
+    }
+
+    // Count occurrences of each number in the current board
+    const boardCounts = {};
+    for (let i = 1; i <= 9; i++) {
+        boardCounts[i] = gameBoard.filter(cell => cell.value === i).length;
+    }
+
+    // Update indicator colors
+    numberIndicators.forEach(indicator => {
+        const num = parseInt(indicator.dataset.number);
+        if (boardCounts[num] === solutionCounts[num]) {
+            // All instances of this number are placed
+            indicator.classList.add('completed');
+        } else {
+            // Still has candidates
+            indicator.classList.remove('completed');
+        }
+    });
 }
 
 function checkGameCompletion() {
