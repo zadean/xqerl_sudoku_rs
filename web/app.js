@@ -1,6 +1,6 @@
-const API_BASE = 'http://127.0.0.1:3000/api';
 const STORAGE_KEY = 'sudoku_games';
 
+let wasm = null;
 let currentPuzzle = null;
 let currentSolution = null;
 let gameBoard = null;
@@ -33,12 +33,24 @@ const nextPuzzleBtn = document.getElementById('nextPuzzleBtn');
 const completionTime = document.getElementById('completionTime');
 let isGameCompleted = false;
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    loadGameHistory();
-    loadNewPuzzle();
-    setupEventListeners();
-    setupKeyboardShortcuts();
+// Initialize WASM and load game
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        // Import and initialize WASM module
+        const wasmInit = await import('./pkg/xqerl_sudoku.js');
+        // Call the default export (init function) to initialize WASM
+        await wasmInit.default();
+        // Now we can use the exported functions
+        wasm = wasmInit;
+        
+        loadGameHistory();
+        loadNewPuzzle();
+        setupEventListeners();
+        setupKeyboardShortcuts();
+    } catch (error) {
+        console.error('Failed to initialize WASM:', error);
+        alert('Failed to load Sudoku puzzle engine. Please refresh the page.');
+    }
 });
 
 function setupEventListeners() {
@@ -148,8 +160,13 @@ function setupKeyboardShortcuts() {
     });
 }
 
-async function loadNewPuzzle() {
+function loadNewPuzzle() {
     try {
+        if (!wasm) {
+            alert('WASM engine not initialized. Please refresh the page.');
+            return;
+        }
+        
         pauseBtn.textContent = '⏸️ Pause';
         pauseOverlay.classList.add('hidden');
         completionOverlay.classList.add('hidden');
@@ -160,44 +177,17 @@ async function loadNewPuzzle() {
         fillCandidatesBtn.classList.remove('active');
         stopTimer();
 
-        const response = await fetch(`${API_BASE}/puzzles/create`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ count: 1 })
-        });
-
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        let buffer = '';
-
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-
-            buffer += decoder.decode(value, { stream: true });
-            const lines = buffer.split('\n');
-            buffer = lines.pop();
-
-            for (const line of lines) {
-                if (line.startsWith('data: ')) {
-                    try {
-                        const puzzle = JSON.parse(line.slice(6));
-                        currentPuzzle = puzzle;
-                        // Fetch full puzzle details
-                        const detailResponse = await fetch(`${API_BASE}/puzzles/${puzzle.id}`);
-                        const puzzleData = await detailResponse.json();
-                        currentSolution = puzzleData.solved_board;
-                        initializeBoard();
-                        startTimer();
-                    } catch (e) {
-                        console.error('Error parsing puzzle:', e);
-                    }
-                }
-            }
-        }
+        // Generate puzzle using WASM
+        const puzzleJson = wasm.generate_puzzle();
+        const puzzle = JSON.parse(puzzleJson);
+        
+        currentPuzzle = puzzle;
+        currentSolution = puzzle.solved_board;
+        initializeBoard();
+        startTimer();
     } catch (error) {
         console.error('Error loading puzzle:', error);
-        alert('Failed to load puzzle');
+        alert('Failed to generate puzzle: ' + (error?.message || error));
     }
 }
 

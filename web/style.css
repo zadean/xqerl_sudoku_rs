@@ -97,11 +97,13 @@ h1 {
 
 .sudoku-grid {
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
+    grid-template-columns: repeat(9, 50px);
+    grid-template-rows: repeat(9, 50px);
     gap: 0;
     border: 3px solid #333;
     background: white;
     padding: 0;
+    margin: 0 auto;
 }
 
 .sudoku-cell {

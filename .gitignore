@@ -1,1 +1,22 @@
-/target
+# Rust build artifacts
+/target/
+Cargo.lock
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS specific files
+Thumbs.db
+.DS_Store
+*.log
+
+# Dependencies
+node_modules/
+
+# Note: web/pkg/ is intentionally NOT ignored
+# It contains the compiled WASM binaries needed for deployment
