@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Solver</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Sudoku Puzzle</h1>
+            <div class="controls">
+                <div class="mode-section">
+                    <button id="pencilBtn" class="mode-btn active" title="Pencil Mode (P)">✏️ Pencil</button>
+                    <button id="inkBtn" class="mode-btn" title="Ink Mode (I)">🖊️ Ink</button>
+                </div>
+                <div class="timer-section">
+                    <span id="timer" class="timer">00:00</span>
+                    <button id="pauseBtn" class="control-btn" title="Pause (Space)">⏸️ Pause</button>
+                </div>
+                <div class="action-section">
+                    <button id="fillCandidatesBtn" class="control-btn" title="Prefill all candidates">🎯 Fill Candidates</button>
+                    <button id="newPuzzleBtn" class="control-btn" title="New Puzzle (N)">🆕 New</button>
+                    <button id="statsBtn" class="control-btn" title="View Stats (S)">📊 Stats</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div id="gameArea" class="game-area">
+                <div id="sudokuGrid" class="sudoku-grid"></div>
+            </div>
+
+            <div id="pauseOverlay" class="pause-overlay hidden">
+                <div class="pause-message">
+                    <h2>Game Paused</h2>
+                    <button id="resumeBtn">Resume</button>
+                </div>
+            </div>
+
+            <div id="statsPanel" class="stats-panel hidden">
+                <div class="stats-content">
+                    <h2>Game Statistics</h2>
+                    <div id="statsData"></div>
+                    <button id="closeStatsBtn">Close</button>
+                </div>
+            </div>
+
+            <div id="completionOverlay" class="completion-overlay hidden">
+                <div class="completion-message">
+                    <h2>🎉 Congratulations!</h2>
+                    <p>You've completed the puzzle!</p>
+                    <p id="completionTime"></p>
+                    <button id="nextPuzzleBtn">Next Puzzle</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="difficulty" id="difficulty"></div>
+            <div class="shortcuts">
+                <strong>Shortcuts:</strong> P=Pencil, I=Ink, Space=Pause, N=New, S=Stats, C=Fill Candidates
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
