@@ -328,6 +328,8 @@ function renderBoard() {
     
     sudokuGrid.innerHTML = '';
     console.log('sudokuGrid cleared, rendering', gameBoard.length, 'cells');
+
+    gameBoard.forEach((cell, idx) => {
         const cellEl = document.createElement('div');
         cellEl.className = 'sudoku-cell';
         if (cell.isClue) cellEl.classList.add('clue');
