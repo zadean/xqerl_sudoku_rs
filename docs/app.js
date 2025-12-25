@@ -115,6 +115,7 @@ function setupEventListeners() {
             handleNumberInput(num);
         });
     });
+}
 
 function saveState(cellIndices) {
     if (!gameBoard) return;
