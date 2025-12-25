@@ -14,29 +14,47 @@ let currentSelection = null;
 let undoHistory = [];
 let candidatesPreFilled = false;
 
-// DOM Elements
-const sudokuGrid = document.getElementById('sudokuGrid');
-const timerDisplay = document.getElementById('timer');
-const pauseBtn = document.getElementById('pauseBtn');
-const resumeBtn = document.getElementById('resumeBtn');
-const pauseOverlay = document.getElementById('pauseOverlay');
-const fillCandidatesBtn = document.getElementById('fillCandidatesBtn');
-const newPuzzleBtn = document.getElementById('newPuzzleBtn');
-const statsBtn = document.getElementById('statsBtn');
-const pencilBtn = document.getElementById('pencilBtn');
-const inkBtn = document.getElementById('inkBtn');
-const closeStatsBtn = document.getElementById('closeStatsBtn');
-const statsPanel = document.getElementById('statsPanel');
-const difficultyDisplay = document.getElementById('difficulty');
-const completionOverlay = document.getElementById('completionOverlay');
-const nextPuzzleBtn = document.getElementById('nextPuzzleBtn');
-const completionTime = document.getElementById('completionTime');
+// DOM Elements - will be initialized in DOMContentLoaded
+let sudokuGrid = null;
+let timerDisplay = null;
+let pauseBtn = null;
+let resumeBtn = null;
+let pauseOverlay = null;
+let fillCandidatesBtn = null;
+let newPuzzleBtn = null;
+let statsBtn = null;
+let pencilBtn = null;
+let inkBtn = null;
+let closeStatsBtn = null;
+let statsPanel = null;
+let difficultyDisplay = null;
+let completionOverlay = null;
+let nextPuzzleBtn = null;
+let completionTime = null;
 let numberIndicators = null;
 let isGameCompleted = false;
 
 // Initialize WASM and load game
 document.addEventListener('DOMContentLoaded', async () => {
     try {
+        // Initialize all DOM elements
+        sudokuGrid = document.getElementById('sudokuGrid');
+        timerDisplay = document.getElementById('timer');
+        pauseBtn = document.getElementById('pauseBtn');
+        resumeBtn = document.getElementById('resumeBtn');
+        pauseOverlay = document.getElementById('pauseOverlay');
+        fillCandidatesBtn = document.getElementById('fillCandidatesBtn');
+        newPuzzleBtn = document.getElementById('newPuzzleBtn');
+        statsBtn = document.getElementById('statsBtn');
+        pencilBtn = document.getElementById('pencilBtn');
+        inkBtn = document.getElementById('inkBtn');
+        closeStatsBtn = document.getElementById('closeStatsBtn');
+        statsPanel = document.getElementById('statsPanel');
+        difficultyDisplay = document.getElementById('difficulty');
+        completionOverlay = document.getElementById('completionOverlay');
+        nextPuzzleBtn = document.getElementById('nextPuzzleBtn');
+        completionTime = document.getElementById('completionTime');
+        
         // Import and initialize WASM module
         const wasmInit = await import('./pkg/xqerl_sudoku.js');
         // Call the default export (init function) to initialize WASM
