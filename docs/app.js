@@ -73,7 +73,14 @@ function setupEventListeners() {
     completionOverlay.addEventListener('click', (e) => {
         if (e.target === completionOverlay) loadNewPuzzle();
     });
-}
+    
+    // Add click handlers for number indicators
+    numberIndicators.forEach(indicator => {
+        indicator.addEventListener('click', () => {
+            const num = parseInt(indicator.dataset.number);
+            handleNumberInput(num);
+        });
+    });
 
 function saveState(cellIndices) {
     if (!gameBoard) return;

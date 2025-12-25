@@ -11,35 +11,40 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 10px;
 }
 
 .container {
     background: white;
     border-radius: 12px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    padding: 30px;
+    padding: 20px;
     max-width: 900px;
     width: 100%;
+    max-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 h1 {
     color: #333;
-    margin-bottom: 20px;
-    font-size: 2.5em;
+    margin-bottom: 15px;
+    font-size: clamp(1.5em, 5vw, 2.5em);
 }
 
 .controls {
     display: flex;
-    gap: 30px;
+    gap: 15px;
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
+    font-size: clamp(0.8em, 2vw, 1em);
 }
 
 .mode-section, .timer-section, .action-section {
@@ -49,12 +54,12 @@ h1 {
 }
 
 .mode-btn, .control-btn {
-    padding: 10px 15px;
+    padding: 8px 12px;
     border: 2px solid #ddd;
     background: white;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: clamp(0.75em, 2vw, 0.95em);
     font-weight: 600;
     transition: all 0.3s ease;
 }
@@ -87,18 +92,24 @@ h1 {
 .main-content {
     display: flex;
     justify-content: center;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     position: relative;
+    flex: 1;
+    overflow: auto;
 }
 
 .game-area {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
 
 .sudoku-grid {
     display: grid;
-    grid-template-columns: repeat(9, 50px);
-    grid-template-rows: repeat(9, 50px);
+    grid-template-columns: repeat(9, minmax(35px, 50px));
+    grid-template-rows: repeat(9, minmax(35px, 50px));
     gap: 0;
     border: 3px solid #333;
     background: white;
@@ -107,8 +118,8 @@ h1 {
 }
 
 .sudoku-cell {
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
     border: 1px solid #999;
     display: flex;
     align-items: center;
@@ -117,7 +128,7 @@ h1 {
     position: relative;
     background: white;
     font-weight: bold;
-    font-size: 20px;
+    font-size: clamp(12px, 3vw, 20px);
     color: #333;
 }
 
@@ -396,64 +407,72 @@ h1 {
 .info {
     text-align: center;
     color: #666;
-    font-size: 13px;
+    font-size: clamp(0.75em, 2vw, 0.85em);
 }
 
 .difficulty {
     margin-bottom: 10px;
-    font-size: 16px;
+    font-size: clamp(14px, 3vw, 16px);
     font-weight: bold;
     color: #667eea;
 }
 
 .shortcuts {
-    padding: 10px;
+    padding: 8px;
     background: #f5f5f5;
     border-radius: 6px;
+    line-height: 1.4;
 }
 
 .number-tracker {
-    margin-top: 30px;
+    margin-top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-}
-
-.tracker-label {
-    font-weight: bold;
-    font-size: 1.1em;
-    color: #333;
+    gap: 12px;
+    width: 100%;
 }
 
 .number-indicators {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     flex-wrap: wrap;
     justify-content: center;
+    width: 100%;
 }
 
 .number-indicator {
-    width: 45px;
-    height: 45px;
+    width: clamp(35px, 8vw, 45px);
+    height: clamp(35px, 8vw, 45px);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: clamp(1em, 3vw, 1.2em);
     border-radius: 8px;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     background-color: #4CAF50;
     color: white;
-    cursor: default;
+    cursor: pointer;
     border: 2px solid #45a049;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    user-select: none;
+}
+
+.number-indicator:active {
+    transform: scale(0.95);
+}
+
+.number-indicator:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    border-color: #3d8b40;
 }
 
 .number-indicator.completed {
     background-color: #f44336;
     border-color: #da190b;
-    opacity: 0.7;
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 @media (max-width: 600px) {
