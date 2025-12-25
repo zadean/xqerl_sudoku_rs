@@ -152,6 +152,33 @@ function setupKeyboardShortcuts() {
             undo();
             return;
         }
+
+        // Handle arrow keys to move selection
+        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+            e.preventDefault();
+            if (currentSelection !== null) {
+                let newIdx = currentSelection;
+                const row = Math.floor(currentSelection / 9);
+                const col = currentSelection % 9;
+
+                switch (e.key) {
+                    case 'ArrowUp':
+                        if (row > 0) newIdx = currentSelection - 9;
+                        break;
+                    case 'ArrowDown':
+                        if (row < 8) newIdx = currentSelection + 9;
+                        break;
+                    case 'ArrowLeft':
+                        if (col > 0) newIdx = currentSelection - 1;
+                        break;
+                    case 'ArrowRight':
+                        if (col < 8) newIdx = currentSelection + 1;
+                        break;
+                }
+                selectCell(newIdx);
+            }
+            return;
+        }
         
         if (isPaused) return;
 
