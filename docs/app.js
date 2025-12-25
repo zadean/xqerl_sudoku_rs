@@ -37,8 +37,11 @@ let isGameCompleted = false;
 // Initialize WASM and load game
 document.addEventListener('DOMContentLoaded', async () => {
     try {
+        console.log('DOMContentLoaded fired');
+        
         // Initialize all DOM elements
         sudokuGrid = document.getElementById('sudokuGrid');
+        console.log('sudokuGrid:', sudokuGrid);
         timerDisplay = document.getElementById('timer');
         pauseBtn = document.getElementById('pauseBtn');
         resumeBtn = document.getElementById('resumeBtn');
@@ -55,19 +58,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         nextPuzzleBtn = document.getElementById('nextPuzzleBtn');
         completionTime = document.getElementById('completionTime');
         
+        console.log('DOM elements initialized');
+        
         // Import and initialize WASM module
+        console.log('Importing WASM module...');
         const wasmInit = await import('./pkg/xqerl_sudoku.js');
+        console.log('WASM module imported, initializing...');
         // Call the default export (init function) to initialize WASM
         await wasmInit.default();
+        console.log('WASM initialized');
         // Now we can use the exported functions
         wasm = wasmInit;
+        console.log('wasm assigned:', typeof wasm);
         
         setupEventListeners();
+        console.log('Event listeners set up');
         loadGameHistory();
+        console.log('Game history loaded');
         loadNewPuzzle();
+        console.log('New puzzle loaded');
         setupKeyboardShortcuts();
+        console.log('Keyboard shortcuts set up');
     } catch (error) {
-        console.error('Failed to initialize WASM:', error);
+        console.error('Failed to initialize:', error);
         alert('Failed to load Sudoku puzzle engine. Please refresh the page.');
     }
 });
