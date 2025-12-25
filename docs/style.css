@@ -49,7 +49,7 @@ h1 {
 
 .mode-section, .timer-section, .action-section {
     display: flex;
-    gap: 10px;
+    gap: 6px;
     align-items: center;
 }
 
@@ -435,26 +435,26 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     width: 100%;
 }
 
 .number-indicators {
     display: flex;
-    gap: 6px;
+    gap: 4px;
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
 }
 
 .number-indicator {
-    width: clamp(30px, 8vw, 45px);
-    height: clamp(30px, 8vw, 45px);
+    width: clamp(28px, 7.5vw, 45px);
+    height: clamp(28px, 7.5vw, 45px);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: clamp(0.8em, 2.5vw, 1.2em);
+    font-size: clamp(0.75em, 2vw, 1.2em);
     border-radius: 8px;
     transition: all 0.2s ease;
     background-color: #4CAF50;
