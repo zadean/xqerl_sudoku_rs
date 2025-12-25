@@ -236,6 +236,8 @@ function loadNewPuzzle() {
 function initializeBoard() {
     if (!currentPuzzle) return;
 
+    console.log('initializeBoard called with puzzle:', currentPuzzle);
+    
     // Initialize game board
     gameBoard = currentPuzzle.puzzle_hints.split('').map((char, idx) => ({
         value: char === '0' ? null : parseInt(char),
@@ -244,6 +246,7 @@ function initializeBoard() {
         index: idx
     }));
 
+    console.log('gameBoard initialized with', gameBoard.length, 'cells');
     renderBoard();
     updateNumberTracker();
     difficultyDisplay.textContent = `Difficulty: ${currentPuzzle.difficulty}`;
@@ -317,9 +320,14 @@ function fillAllCandidates() {
 }
 
 function renderBoard() {
+    console.log('renderBoard called, sudokuGrid:', sudokuGrid, 'gameBoard:', gameBoard);
+    if (!sudokuGrid || !gameBoard) {
+        console.error('renderBoard: sudokuGrid or gameBoard is null!');
+        return;
+    }
+    
     sudokuGrid.innerHTML = '';
-
-    gameBoard.forEach((cell, idx) => {
+    console.log('sudokuGrid cleared, rendering', gameBoard.length, 'cells');
         const cellEl = document.createElement('div');
         cellEl.className = 'sudoku-cell';
         if (cell.isClue) cellEl.classList.add('clue');
