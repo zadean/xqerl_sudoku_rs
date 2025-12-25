@@ -176,6 +176,8 @@ function setupKeyboardShortcuts() {
                         break;
                 }
                 selectCell(newIdx);
+            } else {
+                selectCell(0);
             }
             return;
         }
