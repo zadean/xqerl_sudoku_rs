@@ -31,7 +31,7 @@ const difficultyDisplay = document.getElementById('difficulty');
 const completionOverlay = document.getElementById('completionOverlay');
 const nextPuzzleBtn = document.getElementById('nextPuzzleBtn');
 const completionTime = document.getElementById('completionTime');
-const numberIndicators = document.querySelectorAll('.number-indicator');
+let numberIndicators = null;
 let isGameCompleted = false;
 
 // Initialize WASM and load game
@@ -55,6 +55,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function setupEventListeners() {
+    // Query number indicators here to ensure DOM is ready
+    numberIndicators = document.querySelectorAll('.number-indicator');
+    
     pauseBtn.addEventListener('click', togglePause);
     resumeBtn.addEventListener('click', togglePause);
     fillCandidatesBtn.addEventListener('click', fillAllCandidates);
