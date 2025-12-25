@@ -165,6 +165,9 @@ function setupKeyboardShortcuts() {
             case 'c':
                 fillAllCandidates();
                 break;
+            case 'u':
+                undo();
+                break;
             case ' ':
                 e.preventDefault();
                 togglePause();
