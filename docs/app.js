@@ -44,9 +44,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Now we can use the exported functions
         wasm = wasmInit;
         
+        setupEventListeners();
         loadGameHistory();
         loadNewPuzzle();
-        setupEventListeners();
         setupKeyboardShortcuts();
     } catch (error) {
         console.error('Failed to initialize WASM:', error);
