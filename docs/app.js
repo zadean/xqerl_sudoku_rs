@@ -25,6 +25,7 @@ let newPuzzleBtn = null;
 let statsBtn = null;
 let pencilBtn = null;
 let inkBtn = null;
+let undoBtn = null;
 let closeStatsBtn = null;
 let statsPanel = null;
 let difficultyDisplay = null;
@@ -48,6 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         statsBtn = document.getElementById('statsBtn');
         pencilBtn = document.getElementById('pencilBtn');
         inkBtn = document.getElementById('inkBtn');
+        undoBtn = document.getElementById('undoBtn');
         closeStatsBtn = document.getElementById('closeStatsBtn');
         statsPanel = document.getElementById('statsPanel');
         difficultyDisplay = document.getElementById('difficulty');
@@ -84,6 +86,7 @@ function setupEventListeners() {
     closeStatsBtn.addEventListener('click', hideStats);
     pencilBtn.addEventListener('click', () => setMode(false));
     inkBtn.addEventListener('click', () => setMode(true));
+    undoBtn.addEventListener('click', undo);
     pauseOverlay.addEventListener('click', (e) => {
         if (e.target === pauseOverlay) togglePause();
     });
