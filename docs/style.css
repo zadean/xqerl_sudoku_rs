@@ -215,7 +215,7 @@ h1 {
     gap: 0;
     align-content: start;
     padding: 0;
-    color: #999;
+    color: #555;
 }
 
 .pencil-digit {
@@ -227,12 +227,12 @@ h1 {
 
 .highlighted-value {
     font-weight: 900;
-    color: #1e40af;
+    color: #3d82f6;
 }
 
 .highlighted-pencil {
     font-weight: bold;
-    color: #1e40af;
+    color: #3d82f6;
 }
 
 .pause-overlay {
